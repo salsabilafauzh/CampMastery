@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_home"
+        android:title="Dashboard"
+        android:background="@android:color/transparent" />
+
+    <item
+        android:id="@+id/explore"
+        android:icon="@drawable/ic_explore"
+        android:title="Explore"
+        android:background="@android:color/transparent" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_profil"
+        android:title="profile"
+        android:background="@android:color/transparent" />
+</menu>
