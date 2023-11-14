@@ -9,27 +9,28 @@ import android.view.MenuItem;
 import com.example.CampMastery.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class ExploreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_explore);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-        bottomNavigationView.setSelectedItemId(R.id.dashboard);
+        bottomNavigationView.setSelectedItemId(R.id.explore);
 
         bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.dashboard) {
-                    // Do nothing or perform any action for the Dashboard
-                } else if (item.getItemId() == R.id.explore) {
-                    startActivity(new Intent(getApplicationContext(), ExploreActivity.class));
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
                     finish();
+                } else if (item.getItemId() == R.id.explore) {
+
                 } else if (item.getItemId() == R.id.profile) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
                     finish();
                 }
 
