@@ -41,7 +41,7 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
+        android:textColor="@color/black"
         android:inputType="text"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/frame_rounded"/>
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:textColor="@color/gray"
+        android:textColor="@color/black"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/frame_rounded"/>
 
@@ -69,7 +69,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-
+            <TextView
+                android:id="@+id/create_acc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_new_account"
+                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:clickable="true"
+                android:onClick="onClick"
+                />
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="100dp"
@@ -77,9 +86,8 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@drawable/frame_rounded"
                 android:text="Login"
-
                 android:layout_alignParentRight="true"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textSizeSmall"
                 />
         </RelativeLayout>
