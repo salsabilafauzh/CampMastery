@@ -21,9 +21,7 @@
         android:background="@drawable/vektor_segitiga_bg"
         android:layout_alignParentBottom="true"
         android:layout_height="400dp"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_centerVertical="true"
         android:orientation="vertical"
@@ -32,10 +30,13 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/moveToLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/logo_only"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:clickable="true"
+            android:onClick="onClick"
             />
         <TextView
             android:text="Username"
@@ -107,12 +108,10 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@drawable/frame_rounded"
                 android:text="Register"
-
                 android:layout_alignParentRight="true"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
                 android:textSize="@dimen/textSizeSmall"
                 />
         </RelativeLayout>
     </LinearLayout>
-    </ScrollView>
 </RelativeLayout>

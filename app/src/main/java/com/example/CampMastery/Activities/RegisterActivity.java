@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.CampMastery.R;
@@ -16,6 +17,9 @@ public class RegisterActivity extends AppCompatActivity {
     DbHelper_User dbUser;
     EditText edtEmail, edtPassword, edtUsername;
     Button btnRegister;
+
+    ImageView backToParent;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +31,15 @@ public class RegisterActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edt_email_register);
         edtUsername = findViewById(R.id.edt_username_register);
         edtPassword  =findViewById(R.id.edt_password_register);
-
+        backToParent = findViewById(R.id.moveToLogin);
         btnRegister = findViewById(R.id.btn_register);
         btnRegister.setOnClickListener(v->{
-            if (edtEmail.getText().toString().isEmpty()) {
+            if(edtUsername.getText().toString().isEmpty()){
+                edtUsername.setError("field must have a value");
+            }else if (edtEmail.getText().toString().isEmpty()) {
                 edtEmail.setError("field must have a value");
             } else if (edtPassword.getText().toString().isEmpty()) {
                 edtPassword.setError("field must have a value");
-            }else if(edtUsername.getText().toString().isEmpty()){
-                edtUsername.setError("field must have a value");
             }else{
                 dbUser.addNewUser(edtUsername.getText().toString(),edtEmail.getText().toString(),edtPassword.getText().toString());
                 edtPassword.setText("");
@@ -45,6 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(moveToLogin);
                 finish();
             }
+        });
+
+        backToParent.setOnClickListener(v->{
+            Intent toLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(toLogin);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+            finish();
         });
     }
 

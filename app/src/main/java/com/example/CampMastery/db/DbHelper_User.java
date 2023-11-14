@@ -74,13 +74,13 @@ public class DbHelper_User extends SQLiteOpenHelper {
         return userModelArrayList;
     }
 
-    public String getUserByEmail(String email){
-        String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE email = '" + email + "'";
+    public Cursor getUser(String email, String password) {
+        String selectQuery = "SELECT email, password FROM " + TABLE_USER + " WHERE email = '" + email + "' AND password = '" + password + "'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
-
-        return c.toString();
+        return c;
     }
+
     public long addNewUser(String username, String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -97,8 +97,6 @@ public class DbHelper_User extends SQLiteOpenHelper {
         values.put(KEY_EMAIL,email);
         return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
-
-
 
 
 }
