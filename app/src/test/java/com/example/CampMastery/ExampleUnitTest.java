@@ -1,4 +1,4 @@
-package com.example.scholarconnect;
+package com.example.CampMastery;
 
 import org.junit.Test;
 

@@ -1,15 +1,16 @@
 plugins {
     id("com.android.application")
+    ("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.scholarconnect"
-    compileSdk = 33
+    namespace = "com.example.CampMastery"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.scholarconnect"
+        applicationId = "com.example.CampMastery"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -29,9 +30,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    dataBinding{
+        enable = true
+    }
 }
 
 dependencies {
+    //added depedencies
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
