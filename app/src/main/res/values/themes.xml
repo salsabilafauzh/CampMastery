@@ -1,9 +1,9 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.ScholarConnect" parent="@style/Theme.AppCompat.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FEE3B3</item>
+        <item name="colorPrimaryDark">#FFC973</item>
+        <item name="colorAccent">#2FA0DF</item>
     </style>
-
-    <style name="Theme.ScholarConnect" parent="Base.Theme.ScholarConnect" />
 </resources>

@@ -10,17 +10,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ScholarConnect"
+        android:theme="@style/Base.Theme.ScholarConnect"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.LoginActivity"
-            android:parentActivityName=".Activities.LoginActivity"
+            android:name=".Activities.RegisterActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="false"
+            android:parentActivityName=".Activities.LoginActivity" />
         <activity
             android:name=".Activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.RegisterActivity"
+            android:name=".Activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
