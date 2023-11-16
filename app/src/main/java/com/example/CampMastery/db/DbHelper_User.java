@@ -40,8 +40,6 @@ public class DbHelper_User extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
@@ -97,6 +95,4 @@ public class DbHelper_User extends SQLiteOpenHelper {
         values.put(KEY_EMAIL,email);
         return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
-
-
 }
