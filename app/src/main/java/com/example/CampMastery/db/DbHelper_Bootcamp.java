@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.CampMastery.Model.Bootcamp;
 
@@ -41,8 +42,13 @@ public class DbHelper_Bootcamp extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        db.execSQL(CREATE_TABLE);
+//        db.execSQL(CREATE_TABLE);
+        try {
+            db.execSQL(CREATE_TABLE);
+            Log.d("DbHelper_Bootcamp", "Table created successfully");
+        } catch (Exception e) {
+            Log.e("DbHelper_Bootcamp", "Error creating table: " + e.getMessage());
+        }
     }
 
     @Override

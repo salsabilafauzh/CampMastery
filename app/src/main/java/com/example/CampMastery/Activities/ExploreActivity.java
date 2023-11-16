@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -20,21 +22,18 @@ import java.util.ArrayList;
 
 public class ExploreActivity extends AppCompatActivity {
 
-    DbHelper_Bootcamp dbBootcamp;
+    DbHelper_User dbBootcamp;
     private RecyclerView rv;
     private ArrayList<Bootcamp> list = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
 
-        dbBootcamp = new DbHelper_Bootcamp(getApplicationContext());
-
         dbBootcamp.addBootcamp("Dicoding", "Ini Deskripsi", "10-11-2023","11-11-2023","R.id.cover_bootcamp1");
         dbBootcamp.addBootcamp("Dicoding 2", "Ini Deskripsi 2", "10-11-2023","11-11-2023","cover_bootcamp1");
-
+        list.addAll(dbBootcamp.getAllBootcamps());
         rv = findViewById(R.id.rv_card);
         rv.setHasFixedSize(true);
 
@@ -65,7 +64,6 @@ public class ExploreActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

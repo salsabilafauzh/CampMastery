@@ -12,9 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.CampMastery.Activities.LoginActivity;
+import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.Model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbHelper_User extends SQLiteOpenHelper {
 
@@ -25,7 +27,22 @@ public class DbHelper_User extends SQLiteOpenHelper {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "email";
+    private static final String TABLE_BOOTCAMPS = "bootcamps";
 
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_START_DATE = "start_date";
+    private static final String COLUMN_END_DATE = "end_date";
+    private static final String COLUMN_COVER = "cover";
+    private static final String  CREATE_TABLE_BOOTCAMPS = "CREATE TABLE " + TABLE_BOOTCAMPS + "("
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_TITLE + " TEXT,"
+            + COLUMN_DESCRIPTION + " TEXT,"
+            + COLUMN_START_DATE + " TEXT,"
+            + COLUMN_END_DATE + " TEXT,"
+            + COLUMN_COVER + " TEXT"
+            + ")";
     private static final String CREATE_TABLE_USERS =
             "CREATE TABLE " + TABLE_USER + "(" +
                     KEY_ID + " INTEGER PRIMARY KEY, " +
@@ -40,16 +57,16 @@ public class DbHelper_User extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL(CREATE_TABLE_BOOTCAMPS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_USER + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_BOOTCAMPS + "'");
         onCreate(db);
     }
 
@@ -98,5 +115,42 @@ public class DbHelper_User extends SQLiteOpenHelper {
         return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
+    public void addBootcamp(String title, String desc, String start, String end, String cover) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, title);
+        values.put(COLUMN_DESCRIPTION, desc);
+        values.put(COLUMN_START_DATE, start);
+        values.put(COLUMN_END_DATE, end);
+        values.put(COLUMN_COVER, cover);
+        db.insert(TABLE_BOOTCAMPS, null, values);
+        db.close();
+    }
+
+    @SuppressLint("Range")
+    public List<Bootcamp> getAllBootcamps() {
+        List<Bootcamp> bootcampList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_BOOTCAMPS;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Bootcamp bootcamp = new Bootcamp();
+                bootcamp.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                bootcamp.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
+                bootcamp.setDeskripsi(cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)));
+                bootcamp.setStart(cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE)));
+                bootcamp.setEnd(cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)));
+                bootcamp.setCover(cursor.getString(cursor.getColumnIndex(COLUMN_COVER)));
+                bootcampList.add(bootcamp);
+            } while (cursor.moveToNext());
+
+        }
+
+//        cursor.close();
+//        db.close();
+        return bootcampList;
+    }
 
 }
