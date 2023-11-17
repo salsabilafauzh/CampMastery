@@ -4,11 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.CampMastery.Activities.LoginActivity;
+import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.Model.User;
 
 import java.util.ArrayList;
@@ -36,6 +40,8 @@ public class DbHelper_User extends SQLiteOpenHelper {
     public DbHelper_User(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -76,37 +82,6 @@ public class DbHelper_User extends SQLiteOpenHelper {
         return c;
     }
 
-    @SuppressLint("Range")
-    public User getUserByEmail(String email) {
-        // Note: This example directly concatenates the email into the query string,
-        // but it's not recommended due to the risk of SQL injection.
-        // Ensure that the email is properly sanitized and validated.
-        String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE " + KEY_EMAIL + " = '" + email + "'";
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        User user = null;
-
-        try {
-            if (cursor.moveToFirst()) {
-                user = new User();
-                user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
-                user.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USERNAME)));
-                user.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL)));
-                // Add other fields as needed
-            }
-        } finally {
-            cursor.close(); // Make sure to close the cursor when you're done with it
-        }
-
-        return user;
-    }
-
-
-
-
-
     public long addNewUser(String username, String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -123,4 +98,43 @@ public class DbHelper_User extends SQLiteOpenHelper {
         values.put(KEY_EMAIL,email);
         return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
+
+    public void addBootcamp(String title, String desc, String start, String end, int cover) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_TITLE, title);
+        values.put(COLUMN_DESCRIPTION, desc);
+        values.put(COLUMN_START_DATE, start);
+        values.put(COLUMN_END_DATE, end);
+        values.put(COLUMN_COVER, cover);
+        db.insert(TABLE_BOOTCAMPS, null, values);
+        db.close();
+    }
+
+    @SuppressLint("Range")
+    public List<Bootcamp> getAllBootcamps() {
+        List<Bootcamp> bootcampList = new ArrayList<>();
+        String selectQuery = "SELECT * FROM " + TABLE_BOOTCAMPS;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Bootcamp bootcamp = new Bootcamp();
+                bootcamp.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                bootcamp.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
+                bootcamp.setDeskripsi(cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)));
+                bootcamp.setStart(cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE)));
+                bootcamp.setEnd(cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)));
+                bootcamp.setCover(cursor.getInt(cursor.getColumnIndex(COLUMN_COVER)));
+                bootcampList.add(bootcamp);
+            } while (cursor.moveToNext());
+
+        }
+
+//        cursor.close();
+//        db.close();
+        return bootcampList;
+    }
+
 }
