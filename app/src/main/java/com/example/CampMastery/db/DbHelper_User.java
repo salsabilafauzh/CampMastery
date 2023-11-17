@@ -4,14 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.CampMastery.Activities.LoginActivity;
 import com.example.CampMastery.Model.User;
 
 import java.util.ArrayList;
@@ -78,6 +75,37 @@ public class DbHelper_User extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         return c;
     }
+
+    @SuppressLint("Range")
+    public User getUserByEmail(String email) {
+        // Note: This example directly concatenates the email into the query string,
+        // but it's not recommended due to the risk of SQL injection.
+        // Ensure that the email is properly sanitized and validated.
+        String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE " + KEY_EMAIL + " = '" + email + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        User user = null;
+
+        try {
+            if (cursor.moveToFirst()) {
+                user = new User();
+                user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+                user.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USERNAME)));
+                user.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL)));
+                // Add other fields as needed
+            }
+        } finally {
+            cursor.close(); // Make sure to close the cursor when you're done with it
+        }
+
+        return user;
+    }
+
+
+
+
 
     public long addNewUser(String username, String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();

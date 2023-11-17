@@ -18,7 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText edtEmail, edtPassword, edtUsername;
     Button btnRegister;
 
-    ImageView backToParent;
+    Button backToParent;
 
     @SuppressLint("MissingInflatedId")
     @Override

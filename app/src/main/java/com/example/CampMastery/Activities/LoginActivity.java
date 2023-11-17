@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else {
                         Intent moveToDashboard = new Intent(LoginActivity.this, MainActivity.class);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
+                        moveToDashboard.putExtra("email", edtEmail.getText().toString());
                         startActivity(moveToDashboard);
                         finish();
                     }

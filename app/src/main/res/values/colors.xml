@@ -11,5 +11,6 @@
     <color name="gray_dark">#808080</color>
     <color name="gray">#C7C6C1</color>
     <color name="primary">#FEE3B3</color>
-    <color name="secondary">#FFD28B</color>
+    <color name="secondary">#FFD28B</color>]
+    <color name="logoutRed">#e60000</color>
 </resources>

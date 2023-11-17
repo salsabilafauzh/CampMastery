@@ -27,9 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:textSize="@dimen/textSizeMedium" />
+            android:textSize="@dimen/textSizeBig" />
 
         <TextView
             android:id="@+id/Username"
@@ -38,7 +39,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/ic_background"
             android:backgroundTint="@color/lightYellow"
-            android:text="hiufgiiregugrri"
+            android:text=""
             android:textAlignment="center"
             android:textSize="@dimen/textSizeBig"/>
 
@@ -46,9 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Username"
+            android:textColor="@color/white"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:textAlignment="center"
-            android:textSize="@dimen/textSizeMedium" />
+            android:textSize="@dimen/textSizeBig" />
 
         <TextView
             android:id="@+id/Email"
@@ -57,7 +59,7 @@
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:background="@drawable/ic_background"
             android:backgroundTint="@color/lightYellow"
-            android:text="dsfkjbjkdbfjksbdf"
+            android:text=""
             android:textAlignment="center"
             android:textSize="@dimen/textSizeBig" />
     </LinearLayout>
@@ -70,8 +72,9 @@
         android:text="Logout"
         android:textSize="@dimen/textSizeMedium"
         android:padding="@dimen/activity_vertical_margin"
+        android:backgroundTint = "@color/logoutRed"
         android:textAlignment="center"
-        android:backgroundTint="@color/gray_dark"
+        android:textColor="@color/white"
         android:background="@drawable/ic_background"/>
     </LinearLayout>
 </FrameLayout>

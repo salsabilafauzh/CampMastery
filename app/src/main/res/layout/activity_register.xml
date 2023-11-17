@@ -8,9 +8,12 @@
     android:background="@color/lightYellow"
     tools:context=".Activities.LoginActivity">
     <Button
+        android:id="@+id/moveToLogin"
         android:layout_width="60dp"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:clickable="true"
+        android:onClick="onClick"
         android:layout_height="60dp"
         android:backgroundTint="@color/gray"
         android:background="@drawable/baseline_arrow_back_ios_24"/>
@@ -30,14 +33,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/moveToLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo_only"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:clickable="true"
-            android:onClick="onClick"
-            />
+            android:src="@drawable/logo_only" />
+
         <TextView
             android:text="Username"
             android:layout_marginTop="@dimen/activity_vertical_margin"
