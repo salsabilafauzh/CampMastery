@@ -115,7 +115,7 @@ public class DbHelper_User extends SQLiteOpenHelper {
         return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
-    public void addBootcamp(String title, String desc, String start, String end, String cover) {
+    public void addBootcamp(String title, String desc, String start, String end, int cover) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, title);
@@ -142,7 +142,7 @@ public class DbHelper_User extends SQLiteOpenHelper {
                 bootcamp.setDeskripsi(cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)));
                 bootcamp.setStart(cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE)));
                 bootcamp.setEnd(cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)));
-                bootcamp.setCover(cursor.getString(cursor.getColumnIndex(COLUMN_COVER)));
+                bootcamp.setCover(cursor.getInt(cursor.getColumnIndex(COLUMN_COVER)));
                 bootcampList.add(bootcamp);
             } while (cursor.moveToNext());
 

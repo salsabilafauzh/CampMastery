@@ -26,13 +26,30 @@ public class ExploreActivity extends AppCompatActivity {
     private RecyclerView rv;
     private ArrayList<Bootcamp> list = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
+        dbBootcamp = new DbHelper_User(this);
 
-        dbBootcamp.addBootcamp("Dicoding", "Ini Deskripsi", "10-11-2023","11-11-2023","R.id.cover_bootcamp1");
-        dbBootcamp.addBootcamp("Dicoding 2", "Ini Deskripsi 2", "10-11-2023","11-11-2023","cover_bootcamp1");
+        // Use SharedPreferences to check if data has been added before
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        boolean dataAdded = sharedPreferences.getBoolean("data_added", false);
+
+        if (!dataAdded) {
+            // Add data only if it hasn't been added before
+            dbBootcamp.addBootcamp("Dicoding", "Ini Deskripsi", "10-11-2023"
+                    , "11-11-2023", R.drawable.cover_bootcamp1);
+            dbBootcamp.addBootcamp("Dicoding 2", "Ini Deskripsi 2", "10-11-2023", "11-11-2023"
+                    , R.drawable.cover_bootcamp1);
+
+            // Set the flag to indicate that data has been added
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("data_added", true);
+            editor.apply();
+        }
+
         list.addAll(dbBootcamp.getAllBootcamps());
         rv = findViewById(R.id.rv_card);
         rv.setHasFixedSize(true);
@@ -40,7 +57,6 @@ public class ExploreActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         ExploreAdapter adapter = new ExploreAdapter(list, this);
         rv.setAdapter(adapter);
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setSelectedItemId(R.id.explore);
@@ -53,7 +69,7 @@ public class ExploreActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
                     finish();
                 } else if (item.getItemId() == R.id.explore) {
-
+                    // Handle explore if needed
                 } else if (item.getItemId() == R.id.profile) {
                     startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
@@ -64,6 +80,4 @@ public class ExploreActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

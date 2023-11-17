@@ -2,14 +2,14 @@ package com.example.CampMastery.Model;
 
 public class Bootcamp {
 
-    String title, deskripsi, start, end, cover;
-    int id;
+    String title, deskripsi, start, end;
+    int id, cover;
 
-    public String getCover() {
+    public int getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(int cover) {
         this.cover = cover;
     }
 

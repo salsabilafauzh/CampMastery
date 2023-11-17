@@ -33,7 +33,7 @@ public class DbHelper_Bootcamp extends SQLiteOpenHelper {
             + COLUMN_DESCRIPTION + " TEXT,"
             + COLUMN_START_DATE + " TEXT,"
             + COLUMN_END_DATE + " TEXT,"
-            + COLUMN_COVER + " TEXT"
+            + COLUMN_COVER + " INTEGER"
             + ")";
 
     public DbHelper_Bootcamp(@Nullable Context context) {
@@ -57,7 +57,7 @@ public class DbHelper_Bootcamp extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addBootcamp(String title, String desc, String start, String end, String cover) {
+    public void addBootcamp(String title, String desc, String start, String end, int cover) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_TITLE, title);
@@ -84,7 +84,7 @@ public class DbHelper_Bootcamp extends SQLiteOpenHelper {
                 bootcamp.setDeskripsi(cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)));
                 bootcamp.setStart(cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE)));
                 bootcamp.setEnd(cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)));
-                bootcamp.setCover(cursor.getString(cursor.getColumnIndex(COLUMN_COVER)));
+                bootcamp.setCover(cursor.getInt(cursor.getColumnIndex(COLUMN_COVER)));
 
             } while (cursor.moveToNext());
         }
