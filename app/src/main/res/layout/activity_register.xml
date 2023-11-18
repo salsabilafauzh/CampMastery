@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,9 @@
     android:orientation="vertical"
     android:background="@color/lightYellow"
     tools:context=".Activities.LoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <Button
         android:id="@+id/moveToLogin"
         android:layout_width="60dp"
@@ -53,7 +56,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:inputType="text"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/frame_rounded"/>
@@ -72,7 +75,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:inputType="text"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/frame_rounded"/>
@@ -92,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/frame_rounded"/>
 
@@ -114,4 +117,5 @@
                 />
         </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

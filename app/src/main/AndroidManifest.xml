@@ -13,21 +13,24 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.RegisterActivity"
+            android:name=".Activities.DetailBootcampActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".Activities.RegisterActivity"
             android:exported="false"
             android:parentActivityName=".Activities.LoginActivity" />
         <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".Activities.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.ExploreActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.ProfileActivity"
-            android:exported="false" />
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".Activities.ExploreActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".Activities.ProfileActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".Activities.SplashActivity"
             android:exported="true">

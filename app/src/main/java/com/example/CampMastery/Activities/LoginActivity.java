@@ -68,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent moveToRegister = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(moveToRegister);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
-            finish();
         });
     }
 

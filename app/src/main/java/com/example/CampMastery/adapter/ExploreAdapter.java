@@ -1,6 +1,8 @@
 package com.example.CampMastery.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.CampMastery.Activities.DetailBootcampActivity;
+import com.example.CampMastery.Fragment.ExploreFragment;
 import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.R;
 
@@ -78,6 +82,18 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                     if (position != RecyclerView.NO_POSITION) {
                         Bootcamp selectedBootcamp = result.get(position);
                         showToast("See clicked for: " + selectedBootcamp.getTitle());
+                        // Get the context from the view
+                        Context context = v.getContext();
+
+                        // Create an intent to start the DetailBootcampActivity
+                        Intent moveDetail = new Intent(context, DetailBootcampActivity.class);
+
+                        // You might want to pass some data to the DetailBootcampActivity
+                        moveDetail.putExtra("BOOTCAMP_ID", selectedBootcamp.getId());
+
+                        // Start the activity
+                        context.startActivity(moveDetail);
+
                     }
                 }
             });

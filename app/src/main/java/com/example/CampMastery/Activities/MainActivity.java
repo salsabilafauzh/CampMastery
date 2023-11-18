@@ -21,8 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String emailUserExtra;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,27 +69,5 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
-
-//
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
-//        bottomNavigationView.setSelectedItemId(R.id.dashboard);
-//
-//        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                if (item.getItemId() == R.id.dashboard) {
-//                    // Do nothing or perform any action for the Dashboard
-//                } else if (item.getItemId() == R.id.explore) {
-//                    startActivity(new Intent(getApplicationContext(), FragmentActivity.class));
-//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
-//                    finish();
-//                } else if (item.getItemId() == R.id.profile) {
-//                    startActivity(new Intent(getApplicationContext(), FragmentActivity.class));
-//                    finish();
-//                }
-//
-//                return true; // Return true to indicate that the item selection is handled
-//            }
-//        });
     }
 }

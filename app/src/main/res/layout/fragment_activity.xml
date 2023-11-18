@@ -43,6 +43,8 @@
             app:itemIconTint="@drawable/item_selector"
             app:itemRippleColor="@android:color/transparent"
             app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/menu_item" />
+            app:menu="@menu/menu_item"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

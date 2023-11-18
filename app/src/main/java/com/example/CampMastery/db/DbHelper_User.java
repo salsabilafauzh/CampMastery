@@ -16,6 +16,7 @@ import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.Model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DbHelper_User extends SQLiteOpenHelper {
 
@@ -26,6 +27,23 @@ public class DbHelper_User extends SQLiteOpenHelper {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_EMAIL = "email";
+
+    private static final String TABLE_BOOTCAMPS = "bootcamps";
+
+    private static final String COLUMN_ID = "id";
+    private static final String COLUMN_TITLE = "title";
+    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String COLUMN_START_DATE = "start_date";
+    private static final String COLUMN_END_DATE = "end_date";
+    private static final String COLUMN_COVER = "cover";
+    private static final String  CREATE_TABLE_BOOTCAMPS = "CREATE TABLE " + TABLE_BOOTCAMPS + "("
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_TITLE + " TEXT,"
+            + COLUMN_DESCRIPTION + " TEXT,"
+            + COLUMN_START_DATE + " TEXT,"
+            + COLUMN_END_DATE + " TEXT,"
+            + COLUMN_COVER + " INTEGER"
+            + ")";
 
     private static final String CREATE_TABLE_USERS =
             "CREATE TABLE " + TABLE_USER + "(" +
@@ -45,12 +63,15 @@ public class DbHelper_User extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL(CREATE_TABLE_BOOTCAMPS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_USER + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_BOOTCAMPS + "'");
         onCreate(db);
     }
 
@@ -81,7 +102,32 @@ public class DbHelper_User extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         return c;
     }
+    @SuppressLint("Range")
+    public User getUserByEmail(String email) {
+        // Note: This example directly concatenates the email into the query string,
+        // but it's not recommended due to the risk of SQL injection.
+        // Ensure that the email is properly sanitized and validated.
+        String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE " + KEY_EMAIL + " = '" + email + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
 
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        User user = null;
+
+        try {
+            if (cursor.moveToFirst()) {
+                user = new User();
+                user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+                user.setUsername(cursor.getString(cursor.getColumnIndex(KEY_USERNAME)));
+                user.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL)));
+                // Add other fields as needed
+            }
+        } finally {
+            cursor.close(); // Make sure to close the cursor when you're done with it
+        }
+
+        return user;
+    }
     public long addNewUser(String username, String email, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
