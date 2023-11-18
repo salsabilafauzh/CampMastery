@@ -1,5 +1,7 @@
 package com.example.CampMastery.Model;
 
+import com.example.CampMastery.R;
+
 import java.util.ArrayList;
 
 public class BootcampData {
@@ -94,8 +96,7 @@ public class BootcampData {
             "2023-10-06"
     };
 
-    private static String[] coverImages = {
-
+    private static int[] coverImages = {
     };
 
     public static ArrayList<Bootcamp> getListData() {
@@ -112,4 +113,12 @@ public class BootcampData {
         }
         return list;
     };
+    public static int[] getListDataCover() {
+        int[] coverImageIds = new int[coverImages.length];
+        for (int position = 0; position < coverImages.length; position++) {
+            coverImageIds[position] = Integer.parseInt(String.valueOf(coverImages[position]));
+        }
+        return coverImageIds;
+    }
+
 }

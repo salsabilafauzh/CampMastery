@@ -30,6 +30,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     dataBinding {
         enable = true
     }
@@ -37,6 +38,11 @@ android {
 
 dependencies {
     //added depedencies
+//    implementation ("com.android.support:appcompat-v7:28.0.0")
+//    implementation ("com.android.support.constraint:constraint-layout:1.1.3")
+//    implementation 'com.android.support:support-v4:28.0.0'
+
+    implementation ("androidx.viewpager:viewpager:1.0.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
