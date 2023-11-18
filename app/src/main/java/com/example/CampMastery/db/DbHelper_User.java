@@ -283,14 +283,15 @@ public class DbHelper_User extends SQLiteOpenHelper {
     public boolean isBootcampBookmarked(int bootcampId) {
         SQLiteDatabase db = this.getReadableDatabase();
 
+        int userId = sessionManager.getUserId();
+
         // Specify the table and columns you want to query
         String table = TABLE_BOOKMARKS;
         String[] columns = {COLUMN_ID_BOOKMARK};
 
         // Specify the WHERE clause
-        String selection = COLUMN_ID_BOOTCAMP_BOOKMARK + " = ?";
-        String[] selectionArgs = {String.valueOf(bootcampId)};
-
+        String selection = COLUMN_ID_USER + " = ? AND " + COLUMN_ID_BOOTCAMP_BOOKMARK + " = ?";
+        String[] selectionArgs = {String.valueOf(userId), String.valueOf(bootcampId)};
         // Query the database
         Cursor cursor = db.query(table, columns, selection, selectionArgs, null, null, null);
 
@@ -304,4 +305,9 @@ public class DbHelper_User extends SQLiteOpenHelper {
         return isBookmarked;
     }
 
+    public void clearSession(){
+
+        sessionManager.clearSession();
+
+    }
 }

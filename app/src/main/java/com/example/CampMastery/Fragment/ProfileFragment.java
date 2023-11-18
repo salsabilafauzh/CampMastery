@@ -21,6 +21,7 @@ import com.google.android.material.badge.BadgeUtils;
 import java.util.List;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
+    DbHelper_User db;
     private String email, username;
     TextView tvUsername, tvEmail;
     Button btnLogout;
@@ -36,6 +37,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        db = new DbHelper_User(requireContext());
 
         // Find TextViews by their IDs
         tvUsername = view.findViewById(R.id.Username);
@@ -57,6 +60,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if (v.getId() == R.id.btn_logout) {
             // Handle logout button click
             Intent logout = new Intent(getActivity(), LoginActivity.class);
+            db.clearSession();
             logout.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(logout);
             getActivity().finish();
