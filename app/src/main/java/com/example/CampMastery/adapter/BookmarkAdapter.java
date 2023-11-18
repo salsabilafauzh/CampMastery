@@ -102,7 +102,23 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             see.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showToast("Clicked See");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Bootcamp selectedBootcamp = result.get(position);
+//                        showToast("See clicked for: " + selectedBootcamp.getTitle());
+                        // Get the context from the view
+                        Context context = v.getContext();
+
+                        // Create an intent to start the DetailBootcampActivity
+                        Intent moveDetail = new Intent(context, DetailBootcampActivity.class);
+
+                        // You might want to pass some data to the DetailBootcampActivity
+                        moveDetail.putExtra("BOOTCAMP_ID", selectedBootcamp.getId());
+
+                        // Start the activity
+                        context.startActivity(moveDetail);
+
+                    }
                 }
             });
         }
