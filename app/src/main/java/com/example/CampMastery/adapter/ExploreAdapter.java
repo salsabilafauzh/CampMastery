@@ -19,11 +19,13 @@ import com.example.CampMastery.Activities.DetailBootcampActivity;
 import com.example.CampMastery.Fragment.ExploreFragment;
 import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.R;
+import com.example.CampMastery.db.DbHelper_User;
 
 import java.util.List;
 
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHolder> {
 
+    private DbHelper_User db;
     List<Bootcamp> result;
 
     Activity activity;
@@ -31,6 +33,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
     public ExploreAdapter(List<Bootcamp> result, Activity activity){
         this.result = result;
         this.activity = activity;
+        db = new DbHelper_User(activity);
     }
 
     @NonNull
@@ -64,13 +67,31 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             book = itemView.findViewById(R.id.btn_bookmark);
             see = itemView.findViewById(R.id.btn_see);
 
+
             book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Bootcamp selectedBootcamp = result.get(position);
-                        showToast("Book clicked for: " + selectedBootcamp.getTitle());
+
+
+                        // Check if the bootcamp is bookmarked
+                        boolean isBookmarked = checkIfBookmarked(selectedBootcamp.getId());
+
+                        // Toggle bookmark state
+                        isBookmarked = !isBookmarked;
+
+                        // Perform actions based on bookmark state
+                        if (isBookmarked) {
+                            // Add to database
+                            showToast("Booked : " + selectedBootcamp.getTitle());
+                            db.addBookmark(selectedBootcamp.getId());
+                        } else {
+                            // Remove from database
+                            showToast("UnBooked : " + selectedBootcamp.getTitle());
+                            db.removeBookmark(selectedBootcamp.getId());
+                        }
                     }
                 }
             });
@@ -112,4 +133,11 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
         }
     }
+
+    private boolean checkIfBookmarked(int bootcampId) {
+        // Implement logic to check if the bootcamp is bookmarked in the database
+        // Return true if bookmarked, false otherwise
+        return db.isBootcampBookmarked(bootcampId);
+    }
 }
+

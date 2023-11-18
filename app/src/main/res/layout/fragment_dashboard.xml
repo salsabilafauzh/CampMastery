@@ -16,13 +16,13 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="36sp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:text="dfjnsjfbkjsbfjbsf"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        />
+   <Button
+       android:id="@+id/btn_bookmark"
+       android:layout_gravity="center"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       style="@style/ShapeAppearanceOverlay.Material3.Button"
+       android:text="BOOKMARK"/>
+
     </LinearLayout>
 </FrameLayout>

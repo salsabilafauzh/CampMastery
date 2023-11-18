@@ -12,13 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.CampMastery.Model.User;
 import com.example.CampMastery.R;
+import com.example.CampMastery.Session.SessionManager;
 import com.example.CampMastery.db.DbHelper_User;
 
 public class LoginActivity extends AppCompatActivity {
 
 
     DbHelper_User dbUser;
+    SessionManager sessionManager;
     EditText edtEmail, edtPassword;
     Button btnLogin;
     TextView linkCreateAcc;
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         dbUser = new DbHelper_User(this);
+        sessionManager = new SessionManager(this);
         edtEmail = findViewById(R.id.edt_email_login);
         edtPassword = findViewById(R.id.edt_password_login);
         linkCreateAcc = findViewById(R.id.create_acc);
@@ -50,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (dataUser.getCount() == 0) {
                         Toast.makeText(LoginActivity.this, "Data tidak valid. cek data anda.", Toast.LENGTH_SHORT).show();
                     }else {
+                        int userId = dbUser.getUserId(email, password);
+                        sessionManager.setUserId(userId);
                         Intent moveToDashboard = new Intent(LoginActivity.this, MainActivity.class);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
                         moveToDashboard.putExtra("email", edtEmail.getText().toString());

@@ -4,21 +4,22 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.CampMastery.Activities.LoginActivity;
+import com.example.CampMastery.Model.Bookmark;
 import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.Model.User;
+import com.example.CampMastery.Session.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper_User extends SQLiteOpenHelper {
+
+    private SessionManager sessionManager;
 
     public static String DATABASE_NAME = "CampMastery";
     private static final int DATABASE_VERSION = 1;
@@ -29,13 +30,20 @@ public class DbHelper_User extends SQLiteOpenHelper {
     private static final String KEY_EMAIL = "email";
 
     private static final String TABLE_BOOTCAMPS = "bootcamps";
-
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_TITLE = "title";
     private static final String COLUMN_DESCRIPTION = "description";
     private static final String COLUMN_START_DATE = "start_date";
     private static final String COLUMN_END_DATE = "end_date";
     private static final String COLUMN_COVER = "cover";
+
+    private static final String TABLE_BOOKMARKS = "bookmarks";
+    private static final String COLUMN_ID_USER = "id_user";
+    private static final String COLUMN_ID_BOOTCAMP_BOOKMARK = "id_bootcamp";
+    private static final String COLUMN_ID_BOOKMARK = "id_bookmark";
+
+
+
     private static final String  CREATE_TABLE_BOOTCAMPS = "CREATE TABLE " + TABLE_BOOTCAMPS + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_TITLE + " TEXT,"
@@ -53,25 +61,33 @@ public class DbHelper_User extends SQLiteOpenHelper {
                     KEY_PASSWORD + " TEXT"+
                     ")";
 
-
+    private static final String CREATE_TABLE_BOOKMARKS = "CREATE TABLE " + TABLE_BOOKMARKS + "("
+            + COLUMN_ID_USER + " INTEGER,"
+            + COLUMN_ID_BOOTCAMP_BOOKMARK + " INTEGER,"
+            + COLUMN_ID_BOOKMARK + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + "FOREIGN KEY (" + COLUMN_ID_USER + ") REFERENCES " + TABLE_USER + "(" + KEY_ID + "),"
+            + "FOREIGN KEY (" + COLUMN_ID_BOOTCAMP_BOOKMARK + ") REFERENCES " + TABLE_BOOTCAMPS + "(" + COLUMN_ID + ")"
+            + ")";
 
     public DbHelper_User(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.sessionManager = new SessionManager(context);
+
     }
-
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_BOOTCAMPS);
+        db.execSQL(CREATE_TABLE_BOOKMARKS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_USER + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_BOOTCAMPS + "'");
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_BOOKMARKS+"'");
         onCreate(db);
     }
 
@@ -102,11 +118,30 @@ public class DbHelper_User extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         return c;
     }
+
+    @SuppressLint("Range")
+    public int getUserId(String email, String password) {
+        String selectQuery = "SELECT " + KEY_ID + " FROM " + TABLE_USER +
+                " WHERE email = '" + email + "' AND password = '" + password + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int userId = -1; // Default value if no user is found
+
+        try {
+            if (cursor.moveToFirst()) {
+                userId = cursor.getInt(cursor.getColumnIndex(KEY_ID));
+                // Add other fields as needed
+            }
+        } finally {
+            cursor.close(); // Make sure to close the cursor when you're done with it
+        }
+
+        return userId;
+    }
+
     @SuppressLint("Range")
     public User getUserByEmail(String email) {
-        // Note: This example directly concatenates the email into the query string,
-        // but it's not recommended due to the risk of SQL injection.
-        // Ensure that the email is properly sanitized and validated.
         String selectQuery = "SELECT * FROM " + TABLE_USER + " WHERE " + KEY_EMAIL + " = '" + email + "'";
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -177,10 +212,96 @@ public class DbHelper_User extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
 
         }
-
 //        cursor.close();
 //        db.close();
         return bootcampList;
+    }
+
+    public void addBookmark( int bootcampId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID_USER, sessionManager.getUserId());
+        values.put(COLUMN_ID_BOOTCAMP_BOOKMARK, bootcampId);
+        // Inserting Row
+        db.insert(TABLE_BOOKMARKS, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public void removeBookmark(int bootcampId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Specify the WHERE clause
+        String whereClause = COLUMN_ID_BOOTCAMP_BOOKMARK + " = ? ";
+
+        // Specify the values for the WHERE clause
+        String[] whereArgs = {String.valueOf(bootcampId)};
+
+        // Delete the row from the bookmarks table
+        db.delete(TABLE_BOOKMARKS, whereClause, whereArgs);
+
+        // Close the database connection
+        db.close();
+    }
+
+    @SuppressLint("Range")
+    public List<Bootcamp> getBookmarkedBootcamps() {
+
+        List<Bootcamp> bookmarkedBootcamps = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + TABLE_BOOTCAMPS +
+                " INNER JOIN " + TABLE_BOOKMARKS +
+                " ON " + TABLE_BOOTCAMPS + "." + COLUMN_ID + " = " +
+                TABLE_BOOKMARKS + "." + COLUMN_ID_BOOTCAMP_BOOKMARK +
+                " WHERE " + TABLE_BOOKMARKS + "." + COLUMN_ID_USER + " = " + sessionManager.getUserId();
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // Loop through all rows and add bookmarked bootcamps to the list
+        if (cursor.moveToFirst()) {
+            do {
+                Bootcamp bootcamp = new Bootcamp();
+                bootcamp.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                bootcamp.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
+                bootcamp.setDeskripsi(cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION)));
+                bootcamp.setStart(cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE)));
+                bootcamp.setEnd(cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE)));
+                bootcamp.setCover(cursor.getInt(cursor.getColumnIndex(COLUMN_COVER)));
+
+                bookmarkedBootcamps.add(bootcamp);
+            } while (cursor.moveToNext());
+        }
+//
+//        cursor.close();
+//        db.close();
+
+        return bookmarkedBootcamps;
+    }
+
+
+
+    public boolean isBootcampBookmarked(int bootcampId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Specify the table and columns you want to query
+        String table = TABLE_BOOKMARKS;
+        String[] columns = {COLUMN_ID_BOOKMARK};
+
+        // Specify the WHERE clause
+        String selection = COLUMN_ID_BOOTCAMP_BOOKMARK + " = ?";
+        String[] selectionArgs = {String.valueOf(bootcampId)};
+
+        // Query the database
+        Cursor cursor = db.query(table, columns, selection, selectionArgs, null, null, null);
+
+        // Check if the cursor has any rows (bootcamp is bookmarked)
+        boolean isBookmarked = cursor.getCount() > 0;
+
+//        // Close the cursor and database
+//        cursor.close();
+//        db.close();
+
+        return isBookmarked;
     }
 
 }
