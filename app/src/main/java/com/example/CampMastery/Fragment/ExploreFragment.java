@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.CampMastery.Model.Bootcamp;
+import com.example.CampMastery.Model.BootcampData;
 import com.example.CampMastery.R;
 import com.example.CampMastery.adapter.ExploreAdapter;
 import com.example.CampMastery.db.DbHelper_User;
@@ -26,6 +27,7 @@ public class ExploreFragment extends Fragment {
     private DbHelper_User dbBootcamp;
     private RecyclerView rv;
     private ArrayList<Bootcamp> list = new ArrayList<>();
+
 
     public ExploreFragment() {
         // Required empty public constructor
@@ -41,10 +43,12 @@ public class ExploreFragment extends Fragment {
         boolean dataAdded = sharedPreferences.getBoolean("data_added", false);
 
         if (!dataAdded) {
-            dbBootcamp.addBootcamp("Dicoding", "Ini Deskripsi", "10-11-2023"
-                    , "11-11-2023", R.drawable.cover_bootcamp1);
-            dbBootcamp.addBootcamp("Dicoding 2", "Ini Deskripsi 2", "10-11-2023", "11-11-2023"
-                    , R.drawable.cover_bootcamp1);
+//            dbBootcamp.addBootcamp("Dicoding", "Ini Deskripsi", "10-11-2023"
+//                    , "11-11-2023", R.drawable.cover_bootcamp1);
+//            dbBootcamp.addBootcamp("Dicoding 2", "Ini Deskripsi 2", "10-11-2023", "11-11-2023"
+//                    , R.drawable.cover_bootcamp1);
+            BootcampData listBootcamp =  new BootcampData();
+            dbBootcamp.addBootcamps(listBootcamp.getListData());
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean("data_added", true);
@@ -58,6 +62,7 @@ public class ExploreFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_explore, container, false);
 
+//        list.addAll(dbBootcamp.getAllBootcamps());
         list.addAll(dbBootcamp.getAllBootcamps());
         rv = view.findViewById(R.id.rv_card);
         rv.setHasFixedSize(true);

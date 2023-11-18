@@ -36,7 +36,7 @@ public class DbHelper_User extends SQLiteOpenHelper {
     private static final String COLUMN_START_DATE = "start_date";
     private static final String COLUMN_END_DATE = "end_date";
     private static final String COLUMN_COVER = "cover";
-    private static final String  CREATE_TABLE_BOOTCAMPS = "CREATE TABLE " + TABLE_BOOTCAMPS + "("
+    private static final String CREATE_TABLE_BOOTCAMPS = "CREATE TABLE " + TABLE_BOOTCAMPS + "("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_TITLE + " TEXT,"
             + COLUMN_DESCRIPTION + " TEXT,"
@@ -50,15 +50,13 @@ public class DbHelper_User extends SQLiteOpenHelper {
                     KEY_ID + " INTEGER PRIMARY KEY, " +
                     KEY_USERNAME + " TEXT, " +
                     KEY_EMAIL + " TEXT, " +
-                    KEY_PASSWORD + " TEXT"+
+                    KEY_PASSWORD + " TEXT" +
                     ")";
-
 
 
     public DbHelper_User(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
 
 
     @Override
@@ -74,7 +72,6 @@ public class DbHelper_User extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_BOOTCAMPS + "'");
         onCreate(db);
     }
-
 
 
     @SuppressLint("Range")
@@ -102,6 +99,7 @@ public class DbHelper_User extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(selectQuery, null);
         return c;
     }
+
     @SuppressLint("Range")
     public User getUserByEmail(String email) {
         // Note: This example directly concatenates the email into the query string,
@@ -128,32 +126,80 @@ public class DbHelper_User extends SQLiteOpenHelper {
 
         return user;
     }
-    public long addNewUser(String username, String email, String password){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_USERNAME,username);
-        values.put(KEY_EMAIL,email);
-        values.put(KEY_PASSWORD,password);
-        long insert = db.insert(TABLE_USER,null,values);
-        return insert;
-    }
-    public int updateUserDetail(int id,  String username, String email, String alamat, int usia) {
+
+    public long addNewUser(String username, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_USERNAME, username);
-        values.put(KEY_EMAIL,email);
+        values.put(KEY_EMAIL, email);
+        values.put(KEY_PASSWORD, password);
+        long insert = db.insert(TABLE_USER, null, values);
+        return insert;
+    }
+
+    public int updateUserDetail(int id, String username, String email, String alamat, int usia) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_USERNAME, username);
+        values.put(KEY_EMAIL, email);
         return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
-    public void addBootcamp(String title, String desc, String start, String end, int cover) {
+//    public void addBootcamp(String title, String desc, String start, String end, int cover) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_TITLE, title);
+//        values.put(COLUMN_DESCRIPTION, desc);
+//        values.put(COLUMN_START_DATE, start);
+//        values.put(COLUMN_END_DATE, end);
+//        values.put(COLUMN_COVER, cover);
+//        db.insert(TABLE_BOOTCAMPS, null, values);
+//        db.close();
+//    }
+
+    @SuppressLint("Range")
+    public Bootcamp getBootcamp(int idBootcamp) {
+        SQLiteDatabase db = this.getReadableDatabase();
+//        Bootcamp bootcamp = null;
+        Bootcamp objBootcamp = new Bootcamp();
+        String selectQuery = "SELECT * FROM " + TABLE_BOOTCAMPS + " WHERE " + COLUMN_ID + " = " + idBootcamp;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.moveToFirst()) {
+             int bootcampId = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
+            String bootcampTitle = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE));
+            String descBootcamp = cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION));
+            String startDate = cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE));
+            String endDate = cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE));
+//            String coverImage = cursor.getString(cursor.getColumnIndex(COLUMN_COVER));
+
+
+            objBootcamp.setTitle(bootcampTitle);
+            objBootcamp.setDeskripsi(descBootcamp);
+            objBootcamp.setStart(startDate);
+            objBootcamp.setEnd(endDate);
+//            objBootcamp.setCover();
+        }
+
+        cursor.close();
+        return objBootcamp;
+    }
+
+
+
+    public void addBootcamps(List<Bootcamp> bootcamps) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_TITLE, title);
-        values.put(COLUMN_DESCRIPTION, desc);
-        values.put(COLUMN_START_DATE, start);
-        values.put(COLUMN_END_DATE, end);
-        values.put(COLUMN_COVER, cover);
-        db.insert(TABLE_BOOTCAMPS, null, values);
+
+        for (Bootcamp bootcamp : bootcamps) {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_TITLE, bootcamp.getTitle());
+            values.put(COLUMN_DESCRIPTION, bootcamp.getDeskripsi());
+            values.put(COLUMN_START_DATE, bootcamp.getStart());
+            values.put(COLUMN_END_DATE, bootcamp.getEnd());
+//        values.put(COLUMN_COVER, bootcamp.getCover());
+            db.insert(TABLE_BOOTCAMPS, null, values);
+        }
+
         db.close();
     }
 

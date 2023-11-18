@@ -81,7 +81,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Bootcamp selectedBootcamp = result.get(position);
-                        showToast("See clicked for: " + selectedBootcamp.getTitle());
+//                        showToast("See clicked for: " + selectedBootcamp.getTitle());
                         // Get the context from the view
                         Context context = v.getContext();
 
