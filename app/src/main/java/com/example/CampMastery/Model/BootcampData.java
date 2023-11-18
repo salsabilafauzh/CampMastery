@@ -133,4 +133,12 @@ public class BootcampData {
         }
         return list;
     };
+    public static int[] getListDataCover() {
+        int[] coverImageIds = new int[coverImages.length];
+        for (int position = 0; position < coverImages.length; position++) {
+            coverImageIds[position] = Integer.parseInt(String.valueOf(coverImages[position]));
+        }
+        return coverImageIds;
+    }
+
 }
