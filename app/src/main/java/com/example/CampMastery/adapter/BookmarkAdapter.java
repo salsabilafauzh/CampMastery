@@ -19,18 +19,20 @@ import com.example.CampMastery.Activities.DetailBootcampActivity;
 import com.example.CampMastery.Model.Bookmark;
 import com.example.CampMastery.Model.Bootcamp;
 import com.example.CampMastery.R;
+import com.example.CampMastery.db.DbHelper_User;
 
 import java.util.List;
 
 public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHolder> {
 
     List<Bootcamp> result;
-
+    private DbHelper_User db;
     Activity activity;
 
     public BookmarkAdapter(List<Bootcamp> result, Activity activity){
         this.result = result;
         this.activity = activity;
+        db = new DbHelper_User(activity);
     }
 
     @NonNull
@@ -67,7 +69,33 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
             book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   showToast("Clicked Book");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Bootcamp selectedBootcamp = result.get(position);
+
+
+                        // Check if the bootcamp is bookmarked
+                        boolean isBookmarked = checkIfBookmarked(selectedBootcamp.getId());
+
+                        // Toggle bookmark state
+                        isBookmarked = !isBookmarked;
+
+                        // Perform actions based on bookmark state
+                        if (isBookmarked) {
+                            // Add to database
+                            showToast("Booked : " + selectedBootcamp.getTitle());
+                            db.addBookmark(selectedBootcamp.getId());
+                        } else {
+                            // Remove from database
+                            showToast("UnBooked : " + selectedBootcamp.getTitle());
+                            db.removeBookmark(selectedBootcamp.getId());
+                        }
+
+                        Context context = v.getContext();
+
+                        ((Activity) context).onBackPressed();
+
+                    }
                 }
             });
 
@@ -91,5 +119,11 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         private void showToast(String message) {
             Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean checkIfBookmarked(int bootcampId) {
+        // Implement logic to check if the bootcamp is bookmarked in the database
+        // Return true if bookmarked, false otherwise
+        return db.isBootcampBookmarked(bootcampId);
     }
 }
