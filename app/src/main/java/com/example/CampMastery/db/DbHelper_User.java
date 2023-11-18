@@ -233,7 +233,7 @@ public class DbHelper_User extends SQLiteOpenHelper {
             values.put(COLUMN_DESCRIPTION, bootcamp.getDeskripsi());
             values.put(COLUMN_START_DATE, bootcamp.getStart());
             values.put(COLUMN_END_DATE, bootcamp.getEnd());
-//        values.put(COLUMN_COVER, bootcamp.getCover());
+            values.put(COLUMN_COVER, bootcamp.getCover());
             db.insert(TABLE_BOOTCAMPS, null, values);
         }
 

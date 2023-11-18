@@ -26,7 +26,7 @@ public class DetailBootcampActivity extends AppCompatActivity {
         desc_bootcamp = findViewById(R.id.deskripsi_bootcamp);
         startDate = findViewById(R.id.timeline_start);
         endDate = findViewById(R.id.timeline_end);
-//        imageCover = findViewById(R.id.image_cover);
+        imageCover = findViewById(R.id.image_cover);
         Bundle idBootcampExtra = getIntent().getExtras();
         int idBootcamp = idBootcampExtra.getInt("BOOTCAMP_ID");
         DbHelper_User db = new DbHelper_User(this);
@@ -35,6 +35,6 @@ public class DetailBootcampActivity extends AppCompatActivity {
         desc_bootcamp.setText(data.getDeskripsi());
         startDate.setText(data.getStart());
         endDate.setText(data.getEnd());
-//        Glide.with(this).load(data.getCover()).into(imageCover);
+        Glide.with(this).load(data.getCover()).into(imageCover);
     }
 }

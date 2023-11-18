@@ -23,7 +23,7 @@
                 android:adjustViewBounds="true"
                 android:keepScreenOn="true"
                 android:scaleType="centerInside"
-                android:src="@drawable/cover_bootcamp1"
+                tools:src="@tools:sample/avatars"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar

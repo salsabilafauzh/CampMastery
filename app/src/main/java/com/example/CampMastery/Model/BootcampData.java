@@ -1,5 +1,7 @@
 package com.example.CampMastery.Model;
 
+import com.example.CampMastery.R;
+
 import java.util.ArrayList;
 
 public class BootcampData {
@@ -94,8 +96,27 @@ public class BootcampData {
             "2023-10-06"
     };
 
-    private static String[] coverImages = {
-
+    private static int[] coverImages = {
+            R.drawable.cover_mobile,
+            R.drawable.cover_cloud,
+            R.drawable.cover_python,
+            R.drawable.cover_iot,
+            R.drawable.cover_web,
+            R.drawable.cover_mesinler,
+            R.drawable.cover_devops,
+            R.drawable.cover_gamedev,
+            R.drawable.cover_blockchain,
+            R.drawable.cover_ai,
+            R.drawable.cover_quantum,
+            R.drawable.cover_flutter,
+            R.drawable.cover_nlp,
+            R.drawable.cover_ar,
+            R.drawable.cover_kubernetes,
+            R.drawable.cover_program,
+            R.drawable.cover_datasc,
+            R.drawable.cover_cyber,
+            R.drawable.cover_web2,
+            R.drawable.cover_uiux
     };
 
     public static ArrayList<Bootcamp> getListData() {
@@ -106,7 +127,7 @@ public class BootcampData {
             data.setDeskripsi(bootcampDescriptions[position]);
             data.setStart(startDate[position]);
             data.setEnd(endDate[position]);
-//            data.setCover(coverImages[position]);
+            data.setCover(coverImages[position]);
 
             list.add(data);
         }
