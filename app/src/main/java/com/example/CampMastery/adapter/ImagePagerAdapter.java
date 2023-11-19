@@ -76,6 +76,11 @@ public class ImagePagerAdapter extends PagerAdapter {
         container.removeView((View) object);
         if (position == 0 && viewPager != null) {
             handler.removeCallbacks(slideRunnable);
+            cleanup();
         }
     }
+    public void cleanup() {
+        handler.removeCallbacksAndMessages(null);
+    }
+
 }

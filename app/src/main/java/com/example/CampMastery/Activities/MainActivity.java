@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
 
-
             if (item.getItemId() == R.id.action_dashboard) {
                 selectedFragment = new DashboardFragment();
             } else if (item.getItemId() == R.id.action_explore) {

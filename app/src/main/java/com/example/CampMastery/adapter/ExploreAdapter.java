@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.CampMastery.Activities.DetailBootcampActivity;
 import com.example.CampMastery.Fragment.ExploreFragment;
 import com.example.CampMastery.Model.Bootcamp;
@@ -127,6 +128,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
 
             Glide.with(activity)
                     .load(bootcamp.getCover())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(img);
         }
 
@@ -150,5 +152,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         // Return true if bookmarked, false otherwise
         return db.isBootcampBookmarked(bootcampId);
     }
+
 }
 
