@@ -43,10 +43,6 @@ public class ExploreFragment extends Fragment {
         boolean dataAdded = sharedPreferences.getBoolean("data_added", false);
 
         if (!dataAdded) {
-//            dbBootcamp.addBootcamp("Dicoding", "Ini Deskripsi", "10-11-2023"
-//                    , "11-11-2023", R.drawable.cover_bootcamp1);
-//            dbBootcamp.addBootcamp("Dicoding 2", "Ini Deskripsi 2", "10-11-2023", "11-11-2023"
-//                    , R.drawable.cover_bootcamp1);
             BootcampData listBootcamp =  new BootcampData();
             dbBootcamp.addBootcamps(listBootcamp.getListData());
 

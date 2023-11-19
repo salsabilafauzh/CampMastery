@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.CampMastery.Activities.DetailBootcampActivity;
 import com.example.CampMastery.Model.Bookmark;
 import com.example.CampMastery.Model.Bootcamp;
+import com.example.CampMastery.Model.BootcampData;
 import com.example.CampMastery.R;
 import com.example.CampMastery.db.DbHelper_User;
 
@@ -91,10 +92,17 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
                             db.removeBookmark(selectedBootcamp.getId());
                         }
 
-                        Context context = v.getContext();
-
-                        ((Activity) context).onBackPressed();
-
+//                        Context context = v.getContext();
+//
+//                        ((Activity) context).onBackPressed();
+//                        result.remove(position);
+//                        notifyItemRemoved(position);
+//                        notifyItemRangeChanged(position, getItemCount());
+//                        loadData();
+                        // Remove the item from the list
+                        result.remove(position);
+                        // Notify adapter of the item removal
+                        notifyItemRemoved(position);
                     }
                 }
             });
@@ -142,4 +150,5 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.ViewHo
         // Return true if bookmarked, false otherwise
         return db.isBootcampBookmarked(bootcampId);
     }
+
 }

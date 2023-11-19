@@ -1,38 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primary"
     tools:context=".Fragment.DashboardFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <TextView
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:text="Dashboard"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="36sp" />
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
-        </RelativeLayout>
-   <Button
-       android:id="@+id/btn_bookmark"
-       android:layout_gravity="center"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       style="@style/ShapeAppearanceOverlay.Material3.Button"
-       android:text="BOOKMARK"/>
+                android:layout_height="match_parent"
+                tools:context=".Fragment.DashboardFragment">
 
-    </LinearLayout>
-</FrameLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/viewPager"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/viewPager"
+                                android:background="@color/lightBlue"
+                                android:gravity="center"
+                                android:text="Bootcamp Dashboard"
+                                android:textAlignment="center"
+                                android:textColor="@color/lightYellow"
+                                android:textSize="@dimen/textSizeMedium" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/container_bookmark"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                            android:layout_marginTop="@dimen/activity_vertical_margin"
+                            android:background="@drawable/frame_rounded"
+                            android:backgroundTint="@color/gray"
+                            android:clickable="true"
+                            android:onClick="onClick">
+
+                            <TextView
+                                android:id="@+id/Bookmark"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Bookmark"
+                                android:textSize="@dimen/textSizeMedium" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="40dp"
+                                android:layout_weight="1"
+                                android:paddingHorizontal="@dimen/activity_horizontal_margin">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rv_card_bookmark_highlight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:listitem="@layout/item_bookmark_hightlight" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <!-- Your RecyclerView for bootcamp cards -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_card_bootcamp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/item_card_bootcamp_dashboard" />
+
+                    </LinearLayout>
+                </ScrollView>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

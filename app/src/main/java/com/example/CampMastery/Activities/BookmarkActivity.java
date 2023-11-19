@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.CampMastery.Model.Bookmark;
@@ -34,6 +36,12 @@ public class BookmarkActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         BookmarkAdapter adapter = new BookmarkAdapter(list, this);
         rv.setAdapter(adapter);
-
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        Intent intent = new Intent(BookmarkActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
