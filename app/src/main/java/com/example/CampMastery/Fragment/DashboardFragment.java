@@ -41,7 +41,6 @@ public class DashboardFragment extends Fragment {
     private int[] images = BootcampData.getListDataCover();
     private ArrayList<Bootcamp> bootcampDataList = BootcampData.getListData();
     DashboardBootcampAdapter bootcampAdapter;
-    DashboardBookmarkAdapter bookmarkAdapter;
     private ArrayList<Bootcamp> list = new ArrayList<>();
     private DbHelper_User dbBookmark;
     Activity activity;
@@ -68,7 +67,7 @@ public class DashboardFragment extends Fragment {
             list.addAll(dbBookmark.getBookmarkedBootcamps());
             RecyclerView rvBookmark = view.findViewById(R.id.rv_card_bookmark_highlight);
             rvBookmark.setHasFixedSize(true);
-            rvBookmark.setLayoutManager(new LinearLayoutManager(getContext()));
+            rvBookmark.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
             DashboardBookmarkAdapter bookmarkAdapter = new DashboardBookmarkAdapter(list, getActivity());
             rvBookmark.setAdapter(bookmarkAdapter);
 
