@@ -208,14 +208,14 @@ public class DbHelper_User extends SQLiteOpenHelper {
             String descBootcamp = cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION));
             String startDate = cursor.getString(cursor.getColumnIndex(COLUMN_START_DATE));
             String endDate = cursor.getString(cursor.getColumnIndex(COLUMN_END_DATE));
-//            String coverImage = cursor.getString(cursor.getColumnIndex(COLUMN_COVER));
+            int coverImage = cursor.getInt(cursor.getColumnIndex(COLUMN_COVER));
 
 
             objBootcamp.setTitle(bootcampTitle);
             objBootcamp.setDeskripsi(descBootcamp);
             objBootcamp.setStart(startDate);
             objBootcamp.setEnd(endDate);
-//            objBootcamp.setCover();
+            objBootcamp.setCover(coverImage);
         }
 
         cursor.close();

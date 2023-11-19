@@ -67,14 +67,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
             book = itemView.findViewById(R.id.btn_bookmark);
             see = itemView.findViewById(R.id.btn_see);
 
-
             book.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         Bootcamp selectedBootcamp = result.get(position);
-
 
                         // Check if the bootcamp is bookmarked
                         boolean isBookmarked = checkIfBookmarked(selectedBootcamp.getId());
@@ -92,6 +90,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
                             showToast("UnBooked : " + selectedBootcamp.getTitle());
                             db.removeBookmark(selectedBootcamp.getId());
                         }
+
+                        // Set the appropriate icon based on bookmark state
+                        setBookmarkIcon(itemView,isBookmarked);
                     }
                 }
             });
@@ -132,6 +133,16 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.ViewHold
         private void showToast(String message) {
             Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void setBookmarkIcon(View itemView ,boolean isBookmarked) {
+        Button bookmarkButton = itemView.findViewById(R.id.btn_bookmark);
+
+        // Set the appropriate icon based on the bookmark state
+        int iconResId = isBookmarked ? R.drawable.ic_unbookmark : R.drawable.ic_bookmark;
+
+        // Set the icon to the button
+        bookmarkButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, iconResId, 0);
     }
 
     private boolean checkIfBookmarked(int bootcampId) {

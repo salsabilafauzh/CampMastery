@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -44,21 +45,25 @@
         android:layout_below="@+id/toolbar_detail"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- RelativeLayout with layout_below="@id/toolbar_detail" -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_below="@id/toolbar_detail">
 
+            <!-- Title TextView -->
             <TextView
                 android:id="@+id/nama_bootcamp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerHorizontal="true"
                 android:text="Judul Bootcamp"
                 android:textSize="@dimen/textSizeBig"
                 android:textStyle="bold" />
 
+            <!-- Bookmark Button -->
             <Button
                 android:id="@+id/btn_bookmark"
                 style="@style/Widget.AppCompat.Button.Colored"
@@ -70,6 +75,7 @@
                 android:drawableEnd="@drawable/ic_bookmark"
                 android:drawablePadding="4dp" />
 
+            <!-- Description TextView -->
             <TextView
                 android:id="@+id/deskripsi_bootcamp"
                 android:layout_width="match_parent"
@@ -77,24 +83,25 @@
                 android:layout_below="@id/btn_bookmark"
                 android:text="En: Build mobile applications for iOS and Android platforms using Swift and Kotlin.
 
-Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift dan Kotlin.
-"
+Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift dan Kotlin."
                 android:textSize="@dimen/textSizeMedium" />
 
+            <!-- Timeline RelativeLayout -->
             <RelativeLayout
                 android:id="@+id/timeline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/deskripsi_bootcamp">
 
+                <!-- TableLayout for Date Start and Date End -->
                 <TableLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:padding="@dimen/activity_horizontal_margin">
 
+                    <!-- TableRow for Date Start -->
                     <TableRow>
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -110,8 +117,8 @@ Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift 
                             android:text="dhfbdhbfhsbf" />
                     </TableRow>
 
+                    <!-- TableRow for Date End -->
                     <TableRow>
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -129,6 +136,7 @@ Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift 
                 </TableLayout>
             </RelativeLayout>
 
+            <!-- Apply Button -->
             <Button
                 android:id="@+id/btn_apply"
                 android:layout_width="match_parent"
