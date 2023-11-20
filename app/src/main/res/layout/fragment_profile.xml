@@ -16,7 +16,7 @@
         android:background="@drawable/ic_background"
         android:padding="@dimen/activity_vertical_margin"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/yellow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
