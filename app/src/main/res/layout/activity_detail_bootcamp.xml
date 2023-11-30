@@ -25,6 +25,7 @@
                 android:keepScreenOn="true"
                 android:scaleType="centerInside"
                 tools:src="@tools:sample/avatars"
+                android:background="@color/secondary"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -43,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar_detail"
+        android:background="@color/primary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <!-- RelativeLayout with layout_below="@id/toolbar_detail" -->
@@ -60,7 +62,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerHorizontal="true"
                 android:text="Judul Bootcamp"
-                android:textSize="@dimen/textSizeBig"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSizeTitle"
                 android:textStyle="bold" />
 
             <!-- Bookmark Button -->
@@ -84,6 +87,7 @@
                 android:text="En: Build mobile applications for iOS and Android platforms using Swift and Kotlin.
 
 Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift dan Kotlin."
+                android:textColor="@color/black"
                 android:textSize="@dimen/textSizeMedium" />
 
             <!-- Timeline RelativeLayout -->
@@ -106,6 +110,7 @@ Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift 
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:text="Date Start" />
 
                         <TextView
@@ -114,6 +119,7 @@ Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift 
                             android:layout_height="wrap_content"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:text="dhfbdhbfhsbf" />
                     </TableRow>
 
@@ -123,6 +129,7 @@ Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift 
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:text="Date End" />
 
                         <TextView
@@ -131,6 +138,7 @@ Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift 
                             android:layout_height="wrap_content"
                             android:layout_marginRight="8dp"
                             android:layout_weight="1"
+                            android:textColor="@color/black"
                             android:text="dhfbdhbfhsbf" />
                     </TableRow>
                 </TableLayout>

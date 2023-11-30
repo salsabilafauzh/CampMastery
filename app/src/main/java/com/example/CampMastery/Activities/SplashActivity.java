@@ -10,7 +10,7 @@ import com.example.CampMastery.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private int waktu_loading = 4000;
+    private int waktu_loading = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,4 +5,5 @@
     <dimen name="textSizeSmall">16sp</dimen>
     <dimen name="textSizeMedium">18sp</dimen>
     <dimen name="textSizeBig">32sp</dimen>
+    <dimen name="textSizeTitle">25dp</dimen>
 </resources>

@@ -1,9 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#FEE3B3</item>
-        <item name="colorPrimaryDark">#FFC973</item>
-        <item name="colorAccent">#2FA0DF</item>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:fontFamily">@font/nexaheavy</item>
     </style>
 </resources>

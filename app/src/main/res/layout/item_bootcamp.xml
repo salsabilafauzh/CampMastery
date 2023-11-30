@@ -15,7 +15,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/secondary">
 
         <ImageView
             android:id="@+id/img_item_photo"
@@ -37,6 +38,7 @@
             android:layout_toRightOf="@id/img_item_photo"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             tools:text="name" />
 
         <TextView
@@ -51,6 +53,7 @@
             android:layout_toRightOf="@id/img_item_photo"
             android:ellipsize="end"
             android:maxLines="5"
+            android:textColor="@color/black"
             tools:text="detail" />
 
         <LinearLayout
@@ -67,11 +70,11 @@
             <Button
                 android:id="@+id/btn_bookmark"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="31dp"
+                android:layout_width="32dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_weight="0.2"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/primary"
                 android:drawableEnd="@drawable/ic_bookmark"
                 android:drawablePadding="4dp"
                 android:gravity="center" />
@@ -83,7 +86,7 @@
                 android:layout_width="67dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/secondary"
+                android:backgroundTint="@color/primary"
                 android:text="See Detail"
                 android:textColor="@color/lightBlue"
                 android:textSize="12sp" />
