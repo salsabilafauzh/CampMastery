@@ -4,4 +4,4 @@ CampMaster is a comprehensive application designed to streamline the process of 
 # Tech Stack 
 Java, Sqlite, Android Studio
 
-<img src="https://drive.google.com/uc?export=view&id=1bPT4BdbbUmmdVPVh3-A3Xy_SBdErSOqT" alt="CampMastery Project" width="400" height="200">
+<img src="https://drive.google.com/uc?export=view&id=1bPT4BdbbUmmdVPVh3-A3Xy_SBdErSOqT" alt="CampMastery Project" width="1000" height="500">
