@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ScholarConnect"
+rootProject.name = "CampMastery"
 include(":app")
  

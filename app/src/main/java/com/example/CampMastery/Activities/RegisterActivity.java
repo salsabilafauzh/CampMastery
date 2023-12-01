@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.CampMastery.Model.User;
 import com.example.CampMastery.R;
 import com.example.CampMastery.db.DbHelper_User;
 
@@ -17,7 +18,6 @@ public class RegisterActivity extends AppCompatActivity {
     DbHelper_User dbUser;
     EditText edtEmail, edtPassword, edtUsername;
     Button btnRegister;
-
     Button backToParent;
 
     @SuppressLint("MissingInflatedId")
@@ -41,13 +41,19 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (edtPassword.getText().toString().isEmpty()) {
                 edtPassword.setError("field must have a value");
             }else{
-                dbUser.addNewUser(edtUsername.getText().toString(),edtEmail.getText().toString(),edtPassword.getText().toString());
-                edtPassword.setText("");
-                edtUsername.setText("");
-                edtEmail.setText("");
-                Intent moveToLogin = new Intent(RegisterActivity.this,LoginActivity.class);
-                startActivity(moveToLogin);
-                finish();
+                User checkAccount = dbUser.getUserByEmail(edtEmail.getText().toString());
+                if(checkAccount == null){
+                    dbUser.addNewUser(edtUsername.getText().toString(),edtEmail.getText().toString(),edtPassword.getText().toString());
+                    edtPassword.setText("");
+                    edtUsername.setText("");
+                    edtEmail.setText("");
+                    Toast.makeText(RegisterActivity.this, "Berhasil membuat akun", Toast.LENGTH_SHORT).show();
+                    Intent moveToLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+                    startActivity(moveToLogin);
+                    finish();
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Email sudah digunakan", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
