@@ -1,5 +1,7 @@
 package com.example.CampMastery.Activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +20,7 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
 
     ImageView imageCover;
     TextView nama_bootcamp, desc_bootcamp, startDate, endDate;
-    Button btn_bookmark;
+    Button btn_bookmark, btn_apply;
     DbHelper_User db;
 
     @Override
@@ -31,7 +33,9 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
         startDate = findViewById(R.id.timeline_start);
         endDate = findViewById(R.id.timeline_end);
         imageCover = findViewById(R.id.image_cover);
+
         btn_bookmark = findViewById(R.id.btn_bookmark);
+        btn_apply = findViewById(R.id.btn_apply);
         db = new DbHelper_User(this);
 
         Bundle idBootcampExtra = getIntent().getExtras();
@@ -52,6 +56,7 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
         }
 
         btn_bookmark.setOnClickListener(this);
+        btn_apply.setOnClickListener(this);
     }
 
     @Override
@@ -82,6 +87,11 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
                 // Set the appropriate icon based on bookmark state
                 setBookmarkIcon(btn_bookmark, isBookmarked);
             }
+        } else if (v.getId() == R.id.btn_apply){
+            String url = "https://www.dicoding.com/bangun-negeri/bootcamp";
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
         }
     }
 
