@@ -62,29 +62,24 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_bookmark) {
-            // Assuming you have a Bootcamp object or a way to get its ID in your DetailBootcampActivity
+
             int idBootcamp = getIntent().getIntExtra("BOOTCAMP_ID", -1);
             Bootcamp selectedBootcamp = db.getBootcamp(idBootcamp);
 
             if (selectedBootcamp != null) {
-                // Check if the bootcamp is bookmarked
                 boolean isBookmarked = checkIfBookmarked(selectedBootcamp.getId());
 
-                // Toggle bookmark state
                 isBookmarked = !isBookmarked;
 
-                // Perform actions based on bookmark state
+
                 if (isBookmarked) {
-                    // Add to database
                     showToast("Booked : " + selectedBootcamp.getTitle());
                     db.addBookmark(selectedBootcamp.getId());
                 } else {
-                    // Remove from database
                     showToast("UnBooked : " + selectedBootcamp.getTitle());
                     db.removeBookmark(selectedBootcamp.getId());
                 }
 
-                // Set the appropriate icon based on bookmark state
                 setBookmarkIcon(btn_bookmark, isBookmarked);
             }
         } else if (v.getId() == R.id.btn_apply){

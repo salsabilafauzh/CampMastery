@@ -41,7 +41,5 @@ public class BookmarkActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         this.finish();
-        Intent intent = new Intent(BookmarkActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 }
