@@ -59,31 +59,32 @@
                 android:id="@+id/nama_bootcamp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:autoSizeTextType="uniform"
                 android:layout_alignParentLeft="true"
-                android:layout_centerHorizontal="true"
                 android:text="Judul Bootcamp"
-                android:textColor="@color/black"
+                android:textColor="@color/blue"
                 android:textSize="@dimen/textSizeTitle"
                 android:textStyle="bold" />
 
             <!-- Bookmark Button -->
-            <Button
-                android:id="@+id/btn_bookmark"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_weight="0.2"
-                android:backgroundTint="@color/secondary"
-                android:drawableEnd="@drawable/ic_bookmark"
-                android:drawablePadding="4dp" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_bookmark"-->
+<!--                style="@style/Widget.AppCompat.Button.Colored"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_weight="0.2"-->
+<!--                android:backgroundTint="@color/secondary"-->
+<!--                android:drawableEnd="@drawable/ic_bookmark"-->
+<!--                android:drawablePadding="4dp" />-->
 
             <!-- Description TextView -->
             <TextView
                 android:id="@+id/deskripsi_bootcamp"
+                app:autoSizeTextType="uniform"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/btn_bookmark"
+                android:layout_below="@id/nama_bootcamp"
                 android:text="En: Build mobile applications for iOS and Android platforms using Swift and Kotlin.
 
 Id: Membangun aplikasi seluler untuk platform iOS dan Android menggunakan Swift dan Kotlin."

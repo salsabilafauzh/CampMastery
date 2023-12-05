@@ -34,7 +34,7 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
         endDate = findViewById(R.id.timeline_end);
         imageCover = findViewById(R.id.image_cover);
 
-        btn_bookmark = findViewById(R.id.btn_bookmark);
+//        btn_bookmark = findViewById(R.id.btn_bookmark);
         btn_apply = findViewById(R.id.btn_apply);
         db = new DbHelper_User(this);
 
@@ -51,38 +51,44 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
                 Glide.with(this).load(data.getCover()).into(imageCover);
 
                 // Set the initial state of the bookmark button
-                setBookmarkIcon(btn_bookmark, checkIfBookmarked(data.getId()));
+//                setBookmarkIcon(btn_bookmark, checkIfBookmarked(data.getId()));
             }
         }
 
-        btn_bookmark.setOnClickListener(this);
+//        btn_bookmark.setOnClickListener(this);
         btn_apply.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_bookmark) {
-
-            int idBootcamp = getIntent().getIntExtra("BOOTCAMP_ID", -1);
-            Bootcamp selectedBootcamp = db.getBootcamp(idBootcamp);
-
-            if (selectedBootcamp != null) {
-                boolean isBookmarked = checkIfBookmarked(selectedBootcamp.getId());
-
-                isBookmarked = !isBookmarked;
-
-
-                if (isBookmarked) {
-                    showToast("Booked : " + selectedBootcamp.getTitle());
-                    db.addBookmark(selectedBootcamp.getId());
-                } else {
-                    showToast("UnBooked : " + selectedBootcamp.getTitle());
-                    db.removeBookmark(selectedBootcamp.getId());
-                }
-
-                setBookmarkIcon(btn_bookmark, isBookmarked);
-            }
-        } else if (v.getId() == R.id.btn_apply){
+//        if (v.getId() == R.id.btn_bookmark) {
+//            // Assuming you have a Bootcamp object or a way to get its ID in your DetailBootcampActivity
+//            int idBootcamp = getIntent().getIntExtra("BOOTCAMP_ID", -1);
+//            Bootcamp selectedBootcamp = db.getBootcamp(idBootcamp);
+//
+//            if (selectedBootcamp != null) {
+//                // Check if the bootcamp is bookmarked
+//                boolean isBookmarked = checkIfBookmarked(selectedBootcamp.getId());
+//
+//                // Toggle bookmark state
+//                isBookmarked = !isBookmarked;
+//
+//                // Perform actions based on bookmark state
+//                if (isBookmarked) {
+//                    // Add to database
+//                    showToast("Booked : " + selectedBootcamp.getTitle());
+//                    db.addBookmark(selectedBootcamp.getId());
+//                } else {
+//                    // Remove from database
+//                    showToast("UnBooked : " + selectedBootcamp.getTitle());
+//                    db.removeBookmark(selectedBootcamp.getId());
+//                }
+//
+//                // Set the appropriate icon based on bookmark state
+//                setBookmarkIcon(btn_bookmark, isBookmarked);
+//            }
+//        } else
+        if (v.getId() == R.id.btn_apply){
             String url = "https://www.dicoding.com/bangun-negeri/bootcamp";
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
@@ -90,21 +96,21 @@ public class DetailBootcampActivity extends AppCompatActivity implements View.On
         }
     }
 
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void setBookmarkIcon(Button button, boolean isBookmarked) {
-        // Set the appropriate icon based on the bookmark state
-        int iconResId = isBookmarked ? R.drawable.ic_unbookmark : R.drawable.ic_bookmark;
-
-        // Set the icon to the button
-        button.setCompoundDrawablesWithIntrinsicBounds(0, 0, iconResId, 0);
-    }
-
-    private boolean checkIfBookmarked(int bootcampId) {
-        // Implement logic to check if the bootcamp is bookmarked in the database
-        // Return true if bookmarked, false otherwise
-        return db.isBootcampBookmarked(bootcampId);
-    }
+//    private void showToast(String message) {
+//        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    private void setBookmarkIcon(Button button, boolean isBookmarked) {
+//        // Set the appropriate icon based on the bookmark state
+//        int iconResId = isBookmarked ? R.drawable.ic_unbookmark : R.drawable.ic_bookmark;
+//
+//        // Set the icon to the button
+//        button.setCompoundDrawablesWithIntrinsicBounds(0, 0, iconResId, 0);
+//    }
+//
+//    private boolean checkIfBookmarked(int bootcampId) {
+//        // Implement logic to check if the bootcamp is bookmarked in the database
+//        // Return true if bookmarked, false otherwise
+//        return db.isBootcampBookmarked(bootcampId);
+//    }
 }
